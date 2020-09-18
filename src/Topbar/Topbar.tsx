@@ -25,7 +25,7 @@ const fakeOptions = [
   { label: 'Toronto' },
 ];
 
-function filter(query: string, options: LookupValue[]): LookupValue[] {
+const filter = (query: string, options: LookupValue[]): LookupValue[] => {
   if (query) {
     const regex = new RegExp(query, 'i');
     return options.filter(item => {
