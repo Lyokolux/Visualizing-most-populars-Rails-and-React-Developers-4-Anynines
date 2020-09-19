@@ -76,7 +76,7 @@ const Topbar: React.FC = () => {
       setOptions(filter(input, fakeOptions))
     } else {
       setValue('')
-      setOptions(undefined) // reset options to the default list
+      setOptions(fakeOptions) // reset options to the default list
     }
   }
 
