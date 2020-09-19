@@ -68,7 +68,6 @@ const Topbar: React.FC = () => {
   }
 
   const search = (input: string) => {
-    console.log("search -> search", search)
     if (options && value && input.length > value.length) {
       setOptions(filter(input, options))
       setValue(input)
@@ -82,7 +81,6 @@ const Topbar: React.FC = () => {
   }
 
   const handleLookupChange = (value: LookupValue | null): void => {
-    console.log('onChange called')
     if (value !== null && value.label !== undefined)
       setValue(value.label)
     else
@@ -95,7 +93,7 @@ const Topbar: React.FC = () => {
       <Lookup
         id="searchbar"
         options={options}
-        value={{ label: value }}
+        value={value as LookupValue}
         onChange={handleLookupChange}
         onSearch={search}
         style={LOOKUP_INTERNAL_STYLES}
