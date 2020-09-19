@@ -1,23 +1,18 @@
 import React, { useState } from 'react';
-import logo from '../assets/logo.svg'
 import styled from 'styled-components';
-import './topbar.scss';
-
 import { Lookup } from 'react-rainbow-components';
 import { LookupValue } from 'react-rainbow-components/components/types';
 
-const LookupInternalStyles = {
-  maxWidth: 700,
-};
+import logo from 'src/assets/logo.svg'
 
 const StyledHeader = styled.header`
-    background-color: #282c34;
-    min-height: 100vh;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    min-height: 10vh;
+    max-height: 20vh;
     font-size: calc(10px + 2vmin);
     color: white;
-`;
+`
 
 const Logo = styled.img`
   height: 10vmin;
@@ -35,7 +30,11 @@ const Logo = styled.img`
 
     animation: App-logo-spin infinite 20s linear;
   }
-`;
+`
+
+const LOOKUP_INTERNAL_STYLES = {
+  maxWidth: 5000,
+}
 
 // TODO: use the ones of the HTTP query
 const fakeOptions = [
@@ -51,49 +50,55 @@ const fakeOptions = [
   { label: 'Buenos Aires' },
   { label: 'Sao Paulo' },
   { label: 'Toronto' },
-];
+]
 
 const Topbar: React.FC = () => {
-  const [value, setValue] = useState<LookupValue>({ label: '' })
-  const [options, setOptions] = useState<LookupValue[]>(fakeOptions)
+  const [value, setValue] = useState<string>('')
+  const [options, setOptions] = useState<LookupValue[] | undefined>(undefined)
 
   const filter = (query: string, options: LookupValue[]): LookupValue[] => {
     if (query) {
-      const regex = new RegExp(query, 'i');
+      const regex = new RegExp(query, 'i')
       return options.filter(item => {
-        const label = item.label as string;
-        return regex.test(label);
+        const label = item.label as string
+        return regex.test(label)
       });
     }
     return [];
   }
 
   const search = (input: string) => {
-    const label = value.label as string;
-    if (options && label && input.length > label.length) {
+    console.log("search -> search", search)
+    if (options && value && input.length > value.length) {
       setOptions(filter(input, options))
-      setValue({ label: input })
+      setValue(input)
     } else if (input) {
-      setValue({ label: input });
-      setOptions(filter(input, options))
+      setValue(input)
+      setOptions(filter(input, fakeOptions))
     } else {
-      setValue({ label: '' })
-      setOptions([])
+      setValue('')
+      setOptions(undefined) // reset options to the default list
     }
+  }
+
+  const handleLookupChange = (value: LookupValue | null): void => {
+    console.log('onChange called')
+    if (value !== null && value.label !== undefined)
+      setValue(value.label)
+    else
+      setValue('')
   }
 
   return (
     <StyledHeader>
       <Logo src={logo} alt="logo" />
       <Lookup
-        id="lookup-1"
-        label="Lookup Label"
-        placeholder="Search through"
+        id="searchbar"
         options={options}
-        value={value}
-        onChange={value => setValue({ label: value as string })}
+        value={{ label: value }}
+        onChange={handleLookupChange}
         onSearch={search}
-        style={LookupInternalStyles}
+        style={LOOKUP_INTERNAL_STYLES}
         className="rainbow-m-vertical_x-large rainbow-p-horizontal_medium rainbow-m_auto"
       />
     </StyledHeader>
