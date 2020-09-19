@@ -104,3 +104,31 @@ const Topbar: React.FC = () => {
 }
 
 export default Topbar;
+
+
+const StyledHeader = styled.header`
+    display: flex;
+    align-items: center;
+    min-height: 10vh;
+    max-height: 20vh;
+    font-size: calc(10px + 2vmin);
+    color: white;
+`
+
+const Logo = styled.img`
+  height: 10vmin;
+  pointer-events: none;
+
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes App-logo-spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    animation: App-logo-spin infinite 20s linear;
+  }
+`
