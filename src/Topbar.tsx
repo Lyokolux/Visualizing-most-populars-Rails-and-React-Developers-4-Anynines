@@ -26,7 +26,7 @@ const fakeOptions = [
 ]
 
 const Topbar: React.FC = () => {
-  const [value, setValue] = useState<string>('')
+  const [value, setValue] = useState<LookupValue | undefined>(undefined)
   const [options, setOptions] = useState<LookupValue[] | undefined>(undefined)
 
   const filter = (query: string, options: LookupValue[]): LookupValue[] => {
@@ -41,23 +41,22 @@ const Topbar: React.FC = () => {
   }
 
   const search = (input: string) => {
-    if (options && value && input.length > value.length) {
+    if (options && value && value.label && input.length > value.label.length) {
       setOptions(filter(input, options))
-      setValue(input)
     } else if (input) {
-      setValue(input)
       setOptions(filter(input, fakeOptions))
     } else {
-      setValue('')
+      setValue(undefined)
       setOptions(fakeOptions) // reset options to the default list
     }
   }
 
   const handleLookupChange = (value: LookupValue | null): void => {
-    if (value !== null && value.label !== undefined)
-      setValue(value.label)
+    if (value !== null && value.label !== undefined) {
+      setValue({ label: value.label })
+    }
     else
-      setValue('')
+      setValue(undefined)
   }
 
   return (
@@ -66,7 +65,7 @@ const Topbar: React.FC = () => {
       <Lookup
         id="searchbar"
         options={options}
-        value={value as LookupValue}
+        value={value}
         onChange={handleLookupChange}
         onSearch={search}
         style={LOOKUP_INTERNAL_STYLES}
