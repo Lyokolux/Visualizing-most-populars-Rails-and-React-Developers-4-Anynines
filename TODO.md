@@ -5,3 +5,4 @@
     - [x] by language
         - [ ] add reactivity
     - [ ] ascending/descending
+- [x] Set up Vercel for a quick demo
