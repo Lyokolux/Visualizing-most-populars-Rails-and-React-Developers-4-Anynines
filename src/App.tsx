@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Topbar from 'src/Topbar'
+import Topbar from 'src/organisms/Topbar'
 
 const App: React.FC = () => {
   return (
