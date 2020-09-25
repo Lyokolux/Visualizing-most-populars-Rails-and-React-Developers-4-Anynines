@@ -4,11 +4,11 @@ A [demo](https://visualizing-most-populars-rails-and-react-developers-4-anynines
 
 ## Install and usage
 
-First install the dependancies : `yarn install`
-run in dev mode : `yarn start`
+First install the dependancies : `yarn install`  
+run in dev mode : `yarn start`  
 
-run the tests : `yarn test`
-build for production: `yarn build`
+run the tests : `yarn test`  
+build for production: `yarn build`  
 
 ## Requirements
 
