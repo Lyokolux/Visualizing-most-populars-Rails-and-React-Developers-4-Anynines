@@ -41,7 +41,8 @@ const Topbar: React.FC = () => {
       />
       <GenericButtonGroupPicker
         options={[
-          { name: "Name1", label: "value1" }
+          { name: "Rails", label: "Rails" },
+          { name: "React", label: "React" }
         ]}
       />
     </StyledHeader>
