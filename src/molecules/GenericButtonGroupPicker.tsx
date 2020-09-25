@@ -19,7 +19,7 @@ const GenericButtonGroupPicker: React.FC<GenericButtonGroupPickerProps> = (props
                 className="rainbow-m-around_medium"
                 label={props.label}
                 value={value}
-                onChange={(value) => setValue(value[0])}
+                onChange={(value) => setValue(value as string)}
                 name="filter"
                 size="medium"
                 bottomHelpText={props.bottomHelpText}
