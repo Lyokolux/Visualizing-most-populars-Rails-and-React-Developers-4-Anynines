@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import logo from 'src/assets/logo.svg'
 import Logo from 'src/atoms/Logo'
 import LookupBar from 'src/molecules/LookupBar'
+import GenericButtonGroupPicker from 'src/molecules/GenericButtonGroupPicker'
 
 
 const StyledHeader = styled.header`
@@ -37,6 +38,11 @@ const Topbar: React.FC = () => {
       <Logo src={logo} alt="logo" />
       <LookupBar
         options={fakeOptions}
+      />
+      <GenericButtonGroupPicker
+        options={[
+          { name: "Name1", label: "value1" }
+        ]}
       />
     </StyledHeader>
   );
