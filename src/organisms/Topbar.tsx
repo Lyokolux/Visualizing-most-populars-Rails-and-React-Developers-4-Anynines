@@ -4,11 +4,12 @@ import styled from 'styled-components';
 import logo from 'src/assets/logo.svg'
 import Logo from 'src/atoms/Logo'
 import LookupBar from 'src/molecules/LookupBar'
-import GenericButtonGroupPicker from 'src/molecules/GenericButtonGroupPicker'
+import ButtonsGroupPicker from 'src/molecules/ButtonsGroupPicker'
 
 
 const StyledHeader = styled.header`
     display: flex;
+    justify-content: space-around;
     align-items: center;
     min-height: 10vh;
     max-height: 20vh;
@@ -39,9 +40,10 @@ const Topbar: React.FC = () => {
       <LookupBar
         options={fakeOptions}
       />
-      <GenericButtonGroupPicker
+      <ButtonsGroupPicker
         options={[
           { name: "Rails", label: "Rails" },
+          { name: "Both", label: "Both" },
           { name: "React", label: "React" }
         ]}
       />
