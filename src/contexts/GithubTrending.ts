@@ -34,8 +34,6 @@ const fetchDeveloppersByLanguage = (languages: string[]): devInTrends[] => {
     return allDevelopers
 }
 
-const GithubTrending = React.createContext({
-    developers: fetchDeveloppersByLanguage(LANGUAGES)
-})
+const GithubTrending = React.createContext(fetchDeveloppersByLanguage(LANGUAGES))
 
 export default GithubTrending;

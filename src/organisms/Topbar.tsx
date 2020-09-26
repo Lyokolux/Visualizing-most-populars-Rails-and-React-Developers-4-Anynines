@@ -33,8 +33,8 @@ const Topbar: React.FC = () => {
 
   const [developerNames, setDeveloperNames] = useState<LookupValue[]>([])
   useEffect(() => {
-    setDeveloperNames(toDeveloperNames(developerTrends.developers))
-  }, [developerTrends.developers])
+    setDeveloperNames(toDeveloperNames(developerTrends))
+  }, [developerTrends])
 
 
   return (
