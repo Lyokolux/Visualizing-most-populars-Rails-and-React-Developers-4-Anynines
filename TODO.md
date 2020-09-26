@@ -5,4 +5,6 @@
     - [x] by language
         - [ ] add reactivity
     - [ ] ascending/descending
+- [ ] Fetch the data from the API @huchenme/github-trending in a context
+- [ ] Display the data
 - [x] Set up Vercel for a quick demo

@@ -1,6 +1,8 @@
 import React from 'react';
 import { fetchDevelopers } from '@huchenme/github-trending';
 
+const LANGUAGES = ['ruby', 'javascript', 'typescript']
+
 export type devInTrends = {
     username: string,
     name: string,
@@ -13,13 +15,9 @@ export type devInTrends = {
     }
 }
 
-export type GithubTrendingType = {
-    developers: devInTrends[]
-}
+export type GithubTrendingType = devInTrends[] | null
 
-const LANGUAGES = ['ruby', 'javascript', 'typescript']
-
-const fetchDeveloppersByLanguage = (languages: string[]): devInTrends[] => {
+export const populateGithubTrending = async (languages: string[] = LANGUAGES): Promise<devInTrends[]> => {
     // Send requests
     const requests: Promise<any>[] = []
     languages.forEach((language) => {
@@ -27,15 +25,12 @@ const fetchDeveloppersByLanguage = (languages: string[]): devInTrends[] => {
     })
 
     // Push the results to one flattened array
+    const results = await Promise.all(requests)
     const allDevelopers: devInTrends[] = [];
-    Promise.all(requests).then((results) =>
-        results.forEach((developpers) => allDevelopers.push(...developpers))
-    )
+    results.forEach((developpers) => allDevelopers.push(...developpers))
     return allDevelopers
 }
 
-const GithubTrending = React.createContext({
-    developers: fetchDeveloppersByLanguage(LANGUAGES)
-})
+const GithubTrending = React.createContext<GithubTrendingType>(null)
 
 export default GithubTrending;

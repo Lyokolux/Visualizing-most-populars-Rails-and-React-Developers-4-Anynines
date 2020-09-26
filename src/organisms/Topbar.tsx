@@ -29,20 +29,16 @@ const toDeveloperNames = (developers: devInTrends[]): LookupValue[] => {
 }
 
 const Topbar: React.FC = () => {
-  const developerTrends = useContext(GithubTrending)
-
-  const [developerNames, setDeveloperNames] = useState<LookupValue[]>([])
-  useEffect(() => {
-    setDeveloperNames(toDeveloperNames(developerTrends.developers))
-  }, [developerTrends.developers])
-
-
   return (
     <StyledHeader>
       <Logo src={logo} alt="logo" />
-      <LookupBar
-        options={developerNames}
-      />
+      <GithubTrending.Consumer>
+        {developers =>
+          <LookupBar
+            options={toDeveloperNames(developers as unknown as devInTrends[])}
+          />
+        }
+      </GithubTrending.Consumer>
       <ButtonsGroupPicker
         options={[
           { name: "Rails", label: "Rails" },
