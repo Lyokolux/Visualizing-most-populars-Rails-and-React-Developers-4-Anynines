@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Topbar from 'src/organisms/Topbar'
 import fetchAPI, { GithubTrendingType } from 'src/GithubTrendingAPI'
 import Spinner from 'src/atoms/Spinner';
+import DeveloperTable from './atoms/DeveloperTable';
 
 const App: React.FC = () => {
 
@@ -16,9 +17,14 @@ const App: React.FC = () => {
     )
   else {
     return (
-      <Topbar
-        apiData={apiResponse}
-      />
+      <>
+        <Topbar
+          apiData={apiResponse}
+        />
+        <DeveloperTable
+          data={apiResponse}
+        />
+      </>
     );
   }
 }
