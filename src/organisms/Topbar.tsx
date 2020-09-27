@@ -9,17 +9,6 @@ import { devInTrends, GithubTrendingType } from 'src/GithubTrendingAPI';
 import { LookupValue } from 'react-rainbow-components/components/types';
 
 
-
-const StyledHeader = styled.header`
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    min-height: 10vh;
-    max-height: 20vh;
-    font-size: calc(10px + 2vmin);
-    color: white;
-`
-
 const toDeveloperNames = (developers: devInTrends[]): LookupValue[] => {
   return developers.map(developer => {
     return {
@@ -28,23 +17,17 @@ const toDeveloperNames = (developers: devInTrends[]): LookupValue[] => {
   })
 }
 
-export type LookupBarProps = {
+export type TopBarProps = {
   apiData: GithubTrendingType
 }
 
-const Topbar: React.FC<LookupBarProps> = (props) => {
-
-  const [developerNames, setDeveloperNames] = useState<LookupValue[]>([])
-  useEffect(() => {
-    setDeveloperNames(toDeveloperNames(props.apiData))
-  }, [props.apiData])
-
+const Topbar: React.FC<TopBarProps> = (props) => {
 
   return (
     <StyledHeader>
       <Logo src={logo} alt="logo" />
       <LookupBar
-        options={developerNames}
+        options={toDeveloperNames(props.apiData)}
       />
       <ButtonsGroupPicker
         options={[
@@ -58,3 +41,13 @@ const Topbar: React.FC<LookupBarProps> = (props) => {
 }
 
 export default Topbar;
+
+const StyledHeader = styled.header`
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 10vh;
+    max-height: 20vh;
+    font-size: calc(10px + 2vmin);
+    color: white;
+`
