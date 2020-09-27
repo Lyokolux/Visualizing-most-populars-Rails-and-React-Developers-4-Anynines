@@ -5,7 +5,7 @@ import logo from 'src/assets/logo.svg'
 import Logo from 'src/atoms/Logo'
 import LookupBar from 'src/molecules/LookupBar'
 import ButtonsGroupPicker from 'src/molecules/ButtonsGroupPicker'
-import GithubTrending, { devInTrends } from 'src/contexts/GithubTrending';
+import GithubTrending, { devInTrends, GithubTrendingType } from 'src/contexts/GithubTrendingAPI';
 import { LookupValue } from 'react-rainbow-components/components/types';
 
 
@@ -28,13 +28,16 @@ const toDeveloperNames = (developers: devInTrends[]): LookupValue[] => {
   })
 }
 
-const Topbar: React.FC = () => {
-  const developerTrends = useContext(GithubTrending)
+export type LookupBarProps = {
+  apiData: GithubTrendingType
+}
+
+const Topbar: React.FC<LookupBarProps> = (props) => {
 
   const [developerNames, setDeveloperNames] = useState<LookupValue[]>([])
   useEffect(() => {
-    setDeveloperNames(toDeveloperNames(developerTrends))
-  }, [developerTrends])
+    setDeveloperNames(toDeveloperNames(props.apiData))
+  }, [props.apiData])
 
 
   return (
