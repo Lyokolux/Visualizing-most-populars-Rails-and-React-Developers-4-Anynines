@@ -15,18 +15,28 @@ export type devInTrends = {
 export type GithubTrendingType = devInTrends[]
 
 const LANGUAGES = ['ruby', 'javascript', 'typescript']
+const FRAMEWORKS = [/rails/i, /react(?:js)?/i]
+const IN_TRENDS_SINCE = 'monthly'
+
+const filterByFrameworks = (developers: GithubTrendingType, frameworks = FRAMEWORKS): GithubTrendingType => {
+    return developers.filter((developer) => {
+        const { name, description } = developer.repo;
+        return frameworks.map(framework => framework.test(name) || framework.test(description)).some(x => x === true)
+    })
+}
 
 export const fetchAPI = async (languages: string[] = LANGUAGES): Promise<GithubTrendingType> => {
-    // Send requests
-    const requests: Promise<any>[] = []
+    // Create and send requests
+    const requestPool: Promise<any>[] = []
     languages.forEach((language) => {
-        requests.push(fetchDevelopers({ language }) as Promise<devInTrends[]>)
+        const request = fetchDevelopers({ language, since: IN_TRENDS_SINCE })
+        requestPool.push(request as Promise<GithubTrendingType>)
     })
 
-    // Push the results to one flattened array
-    const allDevelopers: devInTrends[] = [];
-    const results = await Promise.all(requests)
-    results.forEach((developpers) => allDevelopers.push(...developpers))
+    // Push the filtered results to one flattened array
+    const allDevelopers: GithubTrendingType = [];
+    const results = await Promise.all(requestPool)
+    results.forEach((developpers) => allDevelopers.push(...filterByFrameworks(developpers)))
     return allDevelopers
 }
 
