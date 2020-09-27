@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import logo from 'src/assets/logo.svg'
 import Logo from 'src/atoms/Logo'
 import LookupBar from 'src/molecules/LookupBar'
 import ButtonsGroupPicker from 'src/molecules/ButtonsGroupPicker'
+import GithubTrending, { devInTrends, GithubTrendingType } from 'src/contexts/GithubTrendingAPI';
+import { LookupValue } from 'react-rainbow-components/components/types';
+
 
 
 const StyledHeader = styled.header`
@@ -17,28 +20,31 @@ const StyledHeader = styled.header`
     color: white;
 `
 
-// TODO: use the results of the HTTP query
-const fakeOptions = [
-  { label: 'Paris' },
-  { label: 'New York' },
-  { label: 'San Fransisco' },
-  { label: 'Madrid' },
-  { label: 'Miami' },
-  { label: 'London' },
-  { label: 'Tokyo' },
-  { label: 'Barcelona' },
-  { label: 'La Habana' },
-  { label: 'Buenos Aires' },
-  { label: 'Sao Paulo' },
-  { label: 'Toronto' },
-]
+const toDeveloperNames = (developers: devInTrends[]): LookupValue[] => {
+  return developers.map(developer => {
+    return {
+      label: `${developer.name}, ${developer.username}`
+    }
+  })
+}
 
-const Topbar: React.FC = () => {
+export type LookupBarProps = {
+  apiData: GithubTrendingType
+}
+
+const Topbar: React.FC<LookupBarProps> = (props) => {
+
+  const [developerNames, setDeveloperNames] = useState<LookupValue[]>([])
+  useEffect(() => {
+    setDeveloperNames(toDeveloperNames(props.apiData))
+  }, [props.apiData])
+
+
   return (
     <StyledHeader>
       <Logo src={logo} alt="logo" />
       <LookupBar
-        options={fakeOptions}
+        options={developerNames}
       />
       <ButtonsGroupPicker
         options={[
