@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import Topbar from 'src/organisms/Topbar'
-import fetchAPI, { GithubTrendingType } from 'src/contexts/GithubTrendingAPI'
+import fetchAPI, { GithubTrendingType } from 'src/GithubTrendingAPI'
 import Spinner from 'src/atoms/Spinner';
 
 const App: React.FC = () => {

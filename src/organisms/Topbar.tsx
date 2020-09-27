@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import logo from 'src/assets/logo.svg'
 import Logo from 'src/atoms/Logo'
 import LookupBar from 'src/molecules/LookupBar'
 import ButtonsGroupPicker from 'src/molecules/ButtonsGroupPicker'
-import GithubTrending, { devInTrends, GithubTrendingType } from 'src/contexts/GithubTrendingAPI';
+import { devInTrends, GithubTrendingType } from 'src/GithubTrendingAPI';
 import { LookupValue } from 'react-rainbow-components/components/types';
 
 
