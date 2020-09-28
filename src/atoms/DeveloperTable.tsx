@@ -85,22 +85,20 @@ const DeveloperTable: React.FC<DeveloperTableProps> = (props) => {
     useEffect(() => sortRows(sortedBy, sortDirection), [])
 
     return (
-        <div className="rainbow-p-bottom_xx-large">
-            <div style={TABLE_CONTAINER_STYLES}>
-                <Table
-                    keyField="name"
-                    data={data}
-                    onSort={handleOnSort}
-                    sortDirection={sortDirection}
-                    sortedBy={sortedBy}
-                    emptyTitle={EMPTY_TABLE_MESSAGE}
-                >
-                    <Column header="Avatar" field="avatarComponent" width="100" />
-                    <Column header="Username" field="username" sortable />
-                    <Column header="Name" field="name" sortable />
-                    <Column header="URL" field="url" />
-                </Table>
-            </div>
+        <div style={TABLE_CONTAINER_STYLES}>
+            <Table
+                keyField="name"
+                data={data}
+                onSort={handleOnSort}
+                sortDirection={sortDirection}
+                sortedBy={sortedBy}
+                emptyTitle={EMPTY_TABLE_MESSAGE}
+            >
+                <Column header="Avatar" field="avatarComponent" width="100" />
+                <Column header="Username" field="username" sortable />
+                <Column header="Name" field="name" sortable />
+                <Column header="URL" field="url" />
+            </Table>
         </div>
     );
 }
