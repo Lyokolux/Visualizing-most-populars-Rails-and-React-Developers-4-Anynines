@@ -8,6 +8,9 @@ import ButtonsGroupPicker from 'src/molecules/ButtonsGroupPicker'
 import { devInTrends, GithubTrendingType } from 'src/GithubTrendingAPI';
 import { LookupValue } from 'react-rainbow-components/components/types';
 
+export type TopBarProps = {
+  apiData: GithubTrendingType
+}
 
 const toDeveloperNames = (developers: devInTrends[]): LookupValue[] => {
   return developers.map(developer => {
@@ -15,10 +18,6 @@ const toDeveloperNames = (developers: devInTrends[]): LookupValue[] => {
       label: `${developer.name}, ${developer.username}`
     }
   })
-}
-
-export type TopBarProps = {
-  apiData: GithubTrendingType
 }
 
 const Topbar: React.FC<TopBarProps> = (props) => {
@@ -44,9 +43,10 @@ export default Topbar;
 
 const StyledHeader = styled.header`
     display: flex;
+    flex-flow: row wrap;
     justify-content: space-around;
     align-items: center;
     min-height: 10vh;
-    max-height: 20vh;
     font-size: calc(1rem + 2vmin);
+
 `
