@@ -4,7 +4,7 @@ import fetchAPI, { GithubTrendingType } from 'src/GithubTrendingAPI'
 
 import Topbar from 'src/organisms/Topbar'
 import Spinner from 'src/atoms/Spinner';
-import DeveloperTable from './atoms/DeveloperTable';
+import DeveloperTable from './molecules/DeveloperTable';
 
 const StyledApp = styled.div`
   display: flex;
@@ -13,7 +13,7 @@ const StyledApp = styled.div`
 `
 
 const developerTablesStyles: React.CSSProperties = {
-  height: "70vh",
+  height: "75vh",
   alignSelf: "center"
 }
 
