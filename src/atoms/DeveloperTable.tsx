@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, Column, Avatar } from 'react-rainbow-components';
 import styled from 'styled-components'
 
-const TABLE_CONTAINER_STYLES = { height: "70vh" };
 const EMPTY_TABLE_MESSAGE = "Any developers found for this query"
-
 
 type sortDirection = 'asc' | 'desc' | undefined
 type dataType = string
@@ -18,7 +16,8 @@ type dataObject = {
 type developerTableData = Array<dataObject>
 
 export type DeveloperTableProps = {
-    data: developerTableData
+    data: developerTableData,
+    styles: React.CSSProperties
 }
 
 
@@ -85,7 +84,7 @@ const DeveloperTable: React.FC<DeveloperTableProps> = (props) => {
     useEffect(() => sortRows(sortedBy, sortDirection), [])
 
     return (
-        <div style={TABLE_CONTAINER_STYLES}>
+        <div style={props.styles}>
             <Table
                 keyField="name"
                 data={data}

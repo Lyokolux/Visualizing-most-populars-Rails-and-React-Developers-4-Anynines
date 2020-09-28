@@ -9,9 +9,13 @@ import DeveloperTable from './atoms/DeveloperTable';
 const StyledApp = styled.div`
   display: flex;
   flex-flow: column nowrap;
-  justify-content: center;
-  width: 80%;
+  justify-content: space-around;
 `
+
+const developerTablesStyles: React.CSSProperties = {
+  height: "70vh",
+  alignSelf: "center"
+}
 
 const App: React.FC = () => {
 
@@ -32,6 +36,7 @@ const App: React.FC = () => {
           apiData={apiResponse}
         />
         <DeveloperTable
+          styles={developerTablesStyles}
           data={apiResponse}
         />
       </StyledApp>
