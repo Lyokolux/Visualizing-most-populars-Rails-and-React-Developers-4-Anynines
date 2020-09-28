@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, Column, Avatar } from 'react-rainbow-components';
 import styled from 'styled-components'
 
-const TABLE_CONTAINER_STYLES = { height: "50vh" };
+const TABLE_CONTAINER_STYLES = { height: "70vh" };
 const EMPTY_TABLE_MESSAGE = "Any developers found for this query"
 
 
