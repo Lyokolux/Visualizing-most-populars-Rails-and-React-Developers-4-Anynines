@@ -88,7 +88,7 @@ const DeveloperTable: React.FC<DeveloperTableProps> = (props) => {
         <div className="rainbow-p-bottom_xx-large">
             <div style={TABLE_CONTAINER_STYLES}>
                 <Table
-                    keyField="id"
+                    keyField="name"
                     data={data}
                     onSort={handleOnSort}
                     sortDirection={sortDirection}
