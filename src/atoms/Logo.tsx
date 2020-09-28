@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Logo = styled.img`
-  height: 10vmin;
+  height: 10vh;
   pointer-events: none;
 
   @media (prefers-reduced-motion: no-preference) {
