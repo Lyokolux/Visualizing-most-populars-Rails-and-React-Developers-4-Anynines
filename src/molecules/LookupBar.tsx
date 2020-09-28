@@ -3,7 +3,7 @@ import { Lookup } from 'react-rainbow-components';
 import { LookupValue } from 'react-rainbow-components/components/types';
 
 const LOOKUP_INTERNAL_STYLES = {
-    width: "17rem",
+    width: "19rem",
 }
 
 export type LookupBarProps = {
