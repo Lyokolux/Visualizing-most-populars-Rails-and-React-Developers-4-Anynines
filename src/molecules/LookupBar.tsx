@@ -3,7 +3,6 @@ import { Lookup } from 'react-rainbow-components';
 import { LookupValue } from 'react-rainbow-components/components/types';
 
 const LOOKUP_INTERNAL_STYLES = {
-    maxWidth: "5000",
     width: "17rem",
 }
 
