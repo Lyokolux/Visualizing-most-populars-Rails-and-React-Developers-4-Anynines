@@ -12,6 +12,7 @@ type dataObject = {
     url: dataType,
     avatar: dataType,
     avatarComponent?: React.ReactElement<any, any> | null
+    urlComponent?: React.ReactElement<any, any> | null
 }
 type developerTableData = Array<dataObject>
 
@@ -40,19 +41,28 @@ const AvatarInDeveloperTable: React.FC<dataObject> = (props) => {
         </StyledAvatar>
     )
 }
+// ----------------------------------------------------------------------
+
+// Component dedicated to render a link into a Column in DeveloperTable
+// Workaround to avoid unecessary Context
+const LinkInDeveloperTable: React.FC<dataObject> = (props) => {
+    return (
+        <a href={props.url}>{props.url}</a>
+    )
+}
+
 // since the attribute "component" of Coulmn can not have a component with props
 // It renders the component first which should be passed to the Column's field attribute
-const avatarUrlToJsx = (data: developerTableData): developerTableData => {
+const developerDataToJsx = (data: developerTableData): developerTableData => {
     return data.map(developer => {
         developer.avatarComponent = AvatarInDeveloperTable(developer)
+        developer.urlComponent = LinkInDeveloperTable(developer)
         return developer
     })
 }
-// ----------------------------------------------------------------------
-
 
 const DeveloperTable: React.FC<DeveloperTableProps> = (props) => {
-    const [data, setData] = useState<developerTableData>(avatarUrlToJsx(props.data))
+    const [data, setData] = useState<developerTableData>(developerDataToJsx(props.data))
     const [sortedBy, setSortedBy] = useState<string>('name')
     const [sortDirection, setSortDirection] = useState<sortDirection>('asc')
 
@@ -96,7 +106,7 @@ const DeveloperTable: React.FC<DeveloperTableProps> = (props) => {
                 <Column header="Avatar" field="avatarComponent" width="100" />
                 <Column header="Username" field="username" sortable />
                 <Column header="Name" field="name" sortable />
-                <Column header="URL" field="url" />
+                <Column header="URL" field="urlComponent" />
             </Table>
         </div>
     );
