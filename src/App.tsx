@@ -5,6 +5,7 @@ import fetchAPI, { GithubTrendingType } from 'src/GithubTrendingAPI'
 import Topbar from 'src/organisms/Topbar'
 import Spinner from 'src/atoms/Spinner';
 import DeveloperTable from './molecules/DeveloperTable';
+import Footer from 'src/atoms/Footer'
 
 const StyledApp = styled.div`
   display: flex;
@@ -39,6 +40,7 @@ const App: React.FC = () => {
           data={apiResponse}
           styles={developerTablesStyles}
         />
+        <Footer />
       </StyledApp>
     );
   }
