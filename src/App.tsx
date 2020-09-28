@@ -8,7 +8,7 @@ import DeveloperTable from './molecules/DeveloperTable';
 
 const StyledApp = styled.div`
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: column wrap;
   justify-content: space-around;
 `
 
@@ -36,8 +36,8 @@ const App: React.FC = () => {
           apiData={apiResponse}
         />
         <DeveloperTable
-          styles={developerTablesStyles}
           data={apiResponse}
+          styles={developerTablesStyles}
         />
       </StyledApp>
     );
