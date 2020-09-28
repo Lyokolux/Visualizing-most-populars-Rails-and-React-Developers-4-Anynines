@@ -48,6 +48,5 @@ const StyledHeader = styled.header`
     align-items: center;
     min-height: 10vh;
     max-height: 20vh;
-    font-size: calc(10px + 2vmin);
-    color: white;
+    font-size: calc(1rem + 2vmin);
 `
