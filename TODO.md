@@ -1,6 +1,6 @@
 # TODO (top to bottom)
 
-## MVP
+## ✅ MVP
 - [x] Split the current architecture into atomic design
 - [x] Add the filters in the Topbar
     - [x] by language
@@ -15,3 +15,7 @@
 - [x] add an esthetic footer
 - [x] add a loader during while waiting the request
 - [x] set up Vercel for a quick demo
+
+## Improvments
+
+- [ ] Simplify the DeveloperTable component
