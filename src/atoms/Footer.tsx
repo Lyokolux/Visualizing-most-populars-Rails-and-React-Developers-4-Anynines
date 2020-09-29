@@ -20,7 +20,7 @@ const SpinnerWrapper: React.FC = () => {
     return (
         <StyledFooter>
             <p>Knocked up by Lyokolux with ❤️ for Anynines and to learn React.</p>
-            <p>Using <a href="https://github.com/huchenme/github-trending-api">the unofficial github trending API</a> for the datas fetched while the spinner spin 😄</p>
+            <p>Using <a href="https://github.com/huchenme/github-trending-api">the unofficial github trending API</a> for the datas fetched while the spinner was spinning 😄</p>
         </StyledFooter>
     )
 }

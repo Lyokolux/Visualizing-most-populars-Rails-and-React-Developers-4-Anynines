@@ -7,7 +7,8 @@ const LOOKUP_INTERNAL_STYLES = {
 }
 
 export type LookupBarProps = {
-    options: LookupValue[]
+    options: LookupValue[];
+    onChange: React.Dispatch<React.SetStateAction<any>>
 }
 
 const LookupBar: React.FC<LookupBarProps> = (props) => {
@@ -35,14 +36,17 @@ const LookupBar: React.FC<LookupBarProps> = (props) => {
             setValue(undefined)
             setOptions(undefined)
         }
+        props.onChange(input)
     }
 
     const handleLookupChange = (value: LookupValue | null): void => {
         if (value !== null && value.label !== undefined) {
             setValue({ label: value.label })
+            props.onChange(value.label)
         }
         else {
             setValue(undefined)
+            props.onChange(null)
         }
     }
 

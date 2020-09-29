@@ -5,14 +5,18 @@ import logo from 'src/assets/logo.svg'
 import Logo from 'src/atoms/Logo'
 import LookupBar from 'src/molecules/LookupBar'
 import ButtonsGroupPicker from 'src/molecules/ButtonsGroupPicker'
-import { devInTrends, GithubTrendingType } from 'src/GithubTrendingAPI';
+import { TrendingDev, GithubTrendings } from 'src/GithubTrendingAPI';
 import { LookupValue } from 'react-rainbow-components/components/types';
 
 export type TopBarProps = {
-  apiData: GithubTrendingType
+  apiData: GithubTrendings,
+  filterSetters: {
+    developer: React.Dispatch<React.SetStateAction<any>>,
+    framework: React.Dispatch<React.SetStateAction<any>>
+  }
 }
 
-const toDeveloperNames = (developers: devInTrends[]): LookupValue[] => {
+const toDeveloperNames = (developers: TrendingDev[]): LookupValue[] => {
   return developers.map(developer => {
     return {
       label: `${developer.name}, ${developer.username}`
@@ -27,6 +31,7 @@ const Topbar: React.FC<TopBarProps> = (props) => {
       <Logo src={logo} alt="logo" />
       <LookupBar
         options={toDeveloperNames(props.apiData)}
+        onChange={props.filterSetters.developer}
       />
       <ButtonsGroupPicker
         options={[
@@ -34,6 +39,7 @@ const Topbar: React.FC<TopBarProps> = (props) => {
           { name: "Both", label: "Both" },
           { name: "React", label: "React" }
         ]}
+        onChange={props.filterSetters.framework}
       />
     </StyledHeader>
   );

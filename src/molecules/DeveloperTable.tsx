@@ -1,23 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Column, Avatar } from 'react-rainbow-components';
 import styled from 'styled-components'
+import { developerFilter, frameworkFilter, frameworks } from 'src/types'
 
 const EMPTY_TABLE_MESSAGE = "Any developers found for this query"
 
-type sortDirection = 'asc' | 'desc' | undefined
+type sortDirection = 'asc' | 'desc' | undefined // Precise the type used by default in the library (string)
 type dataType = string
 type dataObject = {
     username: dataType,
     name: dataType,
     url: dataType,
+    frameworks: frameworks,
     avatar: dataType,
-    avatarComponent?: React.ReactElement<any, any> | null
+    // ⬇️ components injected in the columns of the DeveloperTable
     urlComponent?: React.ReactElement<any, any> | null
+    frameworkComponent?: React.ReactElement<any, any> | null,
+    avatarComponent?: React.ReactElement<any, any> | null,
 }
 type developerTableData = Array<dataObject>
 
 export type DeveloperTableProps = {
     data: developerTableData,
+    filters: {
+        developer: developerFilter,
+        framework: frameworkFilter
+    }
     styles: React.CSSProperties
 }
 
@@ -51,10 +59,17 @@ const LinkInDeveloperTable: React.FC<dataObject> = (props) => {
     )
 }
 
+const ArrayToStringInTable: React.FC<dataObject> = (props) => {
+    return (
+        <p>{props.frameworks.join(', ')}</p>
+    )
+}
+
 // since the attribute "component" of Coulmn can not have a component with props
 // It renders the component first which should be passed to the Column's field attribute
 const developerDataToJsx = (data: developerTableData): developerTableData => {
     return data.map(developer => {
+        developer.frameworkComponent = ArrayToStringInTable(developer)
         developer.avatarComponent = AvatarInDeveloperTable(developer)
         developer.urlComponent = LinkInDeveloperTable(developer)
         return developer
@@ -62,7 +77,7 @@ const developerDataToJsx = (data: developerTableData): developerTableData => {
 }
 
 const DeveloperTable: React.FC<DeveloperTableProps> = (props) => {
-    const [data, setData] = useState<developerTableData>(developerDataToJsx(props.data))
+    const [data, setData] = useState<developerTableData>(developerDataToJsx([...props.data]))
     const [sortedBy, setSortedBy] = useState<string>('name')
     const [sortDirection, setSortDirection] = useState<sortDirection>('asc')
 
@@ -89,9 +104,39 @@ const DeveloperTable: React.FC<DeveloperTableProps> = (props) => {
         sortRows(field, nextSortDirection as sortDirection)
     }
 
-    // Sort the table on first render only
+    // Sort the table on first render
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => sortRows(sortedBy, sortDirection), [])
+
+    // Sort by developer name
+    useEffect(() => {
+        const devName = props.filters.developer
+        if (devName !== null && devName !== '') {
+            const [name, username] = devName.split(',')
+            if (username === undefined) {
+                setData(data.filter(developer => developer.name.includes(devName) || developer.username.includes(devName)))
+            } else {
+                setData(data.filter(developer => developer.name.includes(name) || developer.username.includes(username)))
+            }
+        } else {
+            setData(props.data)
+        }
+        // Only run on props.filters.developer changes
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.filters.developer])
+
+    // Sort by framework
+    useEffect(() => {
+        const frameworkSelected = props.filters.framework
+        if (frameworkSelected !== 'Both') {
+            console.log(frameworkSelected)
+            setData(props.data.filter(developer => developer.frameworks.includes(frameworkSelected)))
+        } else {
+            setData(props.data)
+        }
+        // Only run on props.filters.developer changes
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.filters.framework])
 
     return (
         <div style={props.styles}>
@@ -106,6 +151,7 @@ const DeveloperTable: React.FC<DeveloperTableProps> = (props) => {
                 <Column header="Avatar" field="avatarComponent" width="100" />
                 <Column header="Username" field="username" sortable />
                 <Column header="Name" field="name" sortable />
+                <Column header="Frameworks" field="frameworkComponent" />
                 <Column header="URL" field="urlComponent" />
             </Table>
         </div>
