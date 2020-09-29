@@ -4,7 +4,7 @@ import fetchAPI, { GithubTrendings } from 'src/GithubTrendingAPI'
 
 import Topbar from 'src/organisms/Topbar'
 import Spinner from 'src/atoms/Spinner';
-import DeveloperTable from './molecules/DeveloperTable';
+import DeveloperTable from 'src/molecules/DeveloperTable';
 import Footer from 'src/atoms/Footer'
 
 export type frameworkFilter = 'Rails' | 'Both' | 'React'
@@ -34,7 +34,6 @@ const App: React.FC = () => {
         />
         <DeveloperTable
           data={apiResponse}
-          styles={developerTablesStyles}
           filters={{ developer: developerFilter, framework: frameworkFilter }}
         />
         <Footer />
@@ -46,12 +45,11 @@ const App: React.FC = () => {
 export default App
 
 const StyledApp = styled.div`
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: space-around;
-`
+  display: grid;
+  grid-template-rows: 10vh 75vh 15vh;
+  grid-template-columns: 100%;
 
-const developerTablesStyles: React.CSSProperties = {
-  height: "75vh",
-  alignSelf: "center"
-}
+  @media only screen and (max-height: 842px) {
+    grid-template-rows: 15vh auto; /* Hide the footer (off the grid), FIXME: tricky thing */
+  }
+`

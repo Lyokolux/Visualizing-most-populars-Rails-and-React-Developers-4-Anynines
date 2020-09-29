@@ -26,7 +26,6 @@ export type DeveloperTableProps = {
         developer: developerFilter,
         framework: frameworkFilter
     }
-    styles: React.CSSProperties
 }
 
 
@@ -138,7 +137,7 @@ const DeveloperTable: React.FC<DeveloperTableProps> = (props) => {
     }, [props.filters.framework])
 
     return (
-        <main style={props.styles}>
+        <main>
             <Table
                 keyField="name"
                 data={data}
