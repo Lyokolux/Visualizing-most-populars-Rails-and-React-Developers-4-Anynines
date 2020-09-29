@@ -3,11 +3,12 @@ import { Lookup } from 'react-rainbow-components';
 import { LookupValue } from 'react-rainbow-components/components/types';
 
 const LOOKUP_INTERNAL_STYLES = {
-    maxWidth: 5000,
+    width: "19rem",
 }
 
 export type LookupBarProps = {
-    options: LookupValue[]
+    options: LookupValue[];
+    onChange: React.Dispatch<React.SetStateAction<any>>
 }
 
 const LookupBar: React.FC<LookupBarProps> = (props) => {
@@ -33,16 +34,20 @@ const LookupBar: React.FC<LookupBarProps> = (props) => {
             setOptions(filter(input, propsOptions))
         } else {
             setValue(undefined)
-            setOptions(propsOptions) // reset options to the default list
+            setOptions(undefined)
         }
+        props.onChange(input)
     }
 
     const handleLookupChange = (value: LookupValue | null): void => {
         if (value !== null && value.label !== undefined) {
             setValue({ label: value.label })
+            props.onChange(value.label)
         }
-        else
+        else {
             setValue(undefined)
+            props.onChange(null)
+        }
     }
 
     return (

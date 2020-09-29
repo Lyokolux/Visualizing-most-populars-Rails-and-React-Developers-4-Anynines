@@ -1,26 +1,22 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import logo from 'src/assets/logo.svg'
 import Logo from 'src/atoms/Logo'
 import LookupBar from 'src/molecules/LookupBar'
 import ButtonsGroupPicker from 'src/molecules/ButtonsGroupPicker'
-import GithubTrending, { devInTrends, GithubTrendingType } from 'src/contexts/GithubTrendingAPI';
+import { TrendingDev, GithubTrendings } from 'src/GithubTrendingAPI';
 import { LookupValue } from 'react-rainbow-components/components/types';
 
+export type TopBarProps = {
+  apiData: GithubTrendings,
+  filterSetters: {
+    developer: React.Dispatch<React.SetStateAction<any>>,
+    framework: React.Dispatch<React.SetStateAction<any>>
+  }
+}
 
-
-const StyledHeader = styled.header`
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    min-height: 10vh;
-    max-height: 20vh;
-    font-size: calc(10px + 2vmin);
-    color: white;
-`
-
-const toDeveloperNames = (developers: devInTrends[]): LookupValue[] => {
+const toDeveloperNames = (developers: TrendingDev[]): LookupValue[] => {
   return developers.map(developer => {
     return {
       label: `${developer.name}, ${developer.username}`
@@ -28,23 +24,14 @@ const toDeveloperNames = (developers: devInTrends[]): LookupValue[] => {
   })
 }
 
-export type LookupBarProps = {
-  apiData: GithubTrendingType
-}
-
-const Topbar: React.FC<LookupBarProps> = (props) => {
-
-  const [developerNames, setDeveloperNames] = useState<LookupValue[]>([])
-  useEffect(() => {
-    setDeveloperNames(toDeveloperNames(props.apiData))
-  }, [props.apiData])
-
+const Topbar: React.FC<TopBarProps> = (props) => {
 
   return (
     <StyledHeader>
       <Logo src={logo} alt="logo" />
       <LookupBar
-        options={developerNames}
+        options={toDeveloperNames(props.apiData)}
+        onChange={props.filterSetters.developer}
       />
       <ButtonsGroupPicker
         options={[
@@ -52,9 +39,20 @@ const Topbar: React.FC<LookupBarProps> = (props) => {
           { name: "Both", label: "Both" },
           { name: "React", label: "React" }
         ]}
+        onChange={props.filterSetters.framework}
       />
     </StyledHeader>
   );
 }
 
 export default Topbar;
+
+const StyledHeader = styled.header`
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 10vh;
+    font-size: calc(1rem + 2vmin);
+
+`

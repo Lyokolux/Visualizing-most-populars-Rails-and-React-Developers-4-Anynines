@@ -6,6 +6,7 @@ export type GenericButtonGroupPickerProps = {
     options: ButtonOptionProps[]
     label?: string
     bottomHelpText?: string
+    onChange: React.Dispatch<React.SetStateAction<any>>
 }
 
 const GenericButtonGroupPicker: React.FC<GenericButtonGroupPickerProps> = (props) => {
@@ -19,7 +20,10 @@ const GenericButtonGroupPicker: React.FC<GenericButtonGroupPickerProps> = (props
                 className="rainbow-m-around_medium"
                 label={props.label}
                 value={value}
-                onChange={(value) => setValue(value as string)}
+                onChange={(value) => {
+                    setValue(value as string)
+                    props.onChange(value)
+                }}
                 name="filter"
                 size="medium"
                 bottomHelpText={props.bottomHelpText}
