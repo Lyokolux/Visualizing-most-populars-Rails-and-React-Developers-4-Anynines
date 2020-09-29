@@ -21,3 +21,4 @@
 - [x] Adapt the layout for all screen sizes → turns out the table is too big for mobile in portrait
 - [ ] Simplify the DeveloperTable component
 - [ ] Handle emojis with images (jsx-ally/accessible-emoji)
+- [ ] write the types for the module '@huchenme/github-trending';
