@@ -19,3 +19,4 @@
 ## Improvments
 
 - [ ] Simplify the DeveloperTable component
+- [ ] Handle emojis with images (jsx-ally/accessible-emoji)
