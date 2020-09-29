@@ -129,7 +129,6 @@ const DeveloperTable: React.FC<DeveloperTableProps> = (props) => {
     useEffect(() => {
         const frameworkSelected = props.filters.framework
         if (frameworkSelected !== 'Both') {
-            console.log(frameworkSelected)
             setData(props.data.filter(developer => developer.frameworks.includes(frameworkSelected)))
         } else {
             setData(props.data)
