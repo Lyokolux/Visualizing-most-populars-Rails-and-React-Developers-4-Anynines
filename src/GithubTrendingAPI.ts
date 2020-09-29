@@ -12,11 +12,12 @@ export type TrendingDev = {
         url: string
     }
 }
+export type TrendingDevWithFrameworks = TrendingDev & { frameworks: frameworks }
+export type GithubTrendings = TrendingDevWithFrameworks[]
+
 export type framework = 'Rails' | 'React';
 export type frameworks = Array<framework>
-export type TrendingDevWithFrameworks = TrendingDev & { frameworks: frameworks }
 
-export type GithubTrendings = TrendingDevWithFrameworks[]
 
 const LANGUAGES = ['ruby', 'javascript', 'typescript']
 const FRAMEWORKS: Array<{ name: framework, regex: RegExp }> = [
@@ -26,7 +27,7 @@ const FRAMEWORKS: Array<{ name: framework, regex: RegExp }> = [
 const IN_TRENDS_SINCE = 'monthly'
 
 const filterAndLabelByFrameworks = (developers: TrendingDev[], frameworks = FRAMEWORKS): TrendingDevWithFrameworks[] => {
-    const developersWithFrameworks = developers.reduce<TrendingDevWithFrameworks[]>((acc, developer) => {
+    return developers.reduce<TrendingDevWithFrameworks[]>((acc, developer) => {
         const dev: TrendingDevWithFrameworks = { ...developer, frameworks: [] }
         const { name: devName, description: devDescription } = developer.repo;
 
@@ -43,7 +44,6 @@ const filterAndLabelByFrameworks = (developers: TrendingDev[], frameworks = FRAM
         }
         return acc
     }, [])
-    return developersWithFrameworks.filter(x => x)
 }
 
 export const fetchAPI = async (languages: string[] = LANGUAGES): Promise<GithubTrendings> => {
@@ -54,7 +54,7 @@ export const fetchAPI = async (languages: string[] = LANGUAGES): Promise<GithubT
         requestPool.push(request as Promise<GithubTrendings>)
     })
 
-    // Push the filtered results to one flattened array
+    // Push the processed results to one flattened array
     const allDevelopers: GithubTrendings = [];
     const results = await Promise.all(requestPool)
     results.forEach((developpers) => allDevelopers.push(...filterAndLabelByFrameworks(developpers)))
