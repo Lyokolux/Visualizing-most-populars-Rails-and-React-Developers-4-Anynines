@@ -138,7 +138,7 @@ const DeveloperTable: React.FC<DeveloperTableProps> = (props) => {
     }, [props.filters.framework])
 
     return (
-        <div style={props.styles}>
+        <main style={props.styles}>
             <Table
                 keyField="name"
                 data={data}
@@ -153,7 +153,7 @@ const DeveloperTable: React.FC<DeveloperTableProps> = (props) => {
                 <Column header="Frameworks" field="frameworkComponent" />
                 <Column header="URL" field="urlComponent" />
             </Table>
-        </div>
+        </main>
     );
 }
 
